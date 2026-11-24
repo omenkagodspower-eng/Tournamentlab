@@ -72,3 +72,19 @@ for position, team in enumerate(standings, start=1):
         f"{team['gd']:<5}"
         f"{team['points']:<5}"
     )
+
+print("\n=== MATCH RESULTS ===")
+
+for fixture in fixtures:
+    if fixture["status"] == "played":
+        print(
+            f"{fixture['home']} "
+            f"{fixture['home_score']} - "
+            f"{fixture['away_score']} "
+            f"{fixture['away']}"
+        )
+
+print("\n=== FIXTURES LIST ===")
+
+for fixture in fixtures:
+    print(f"{fixture['home']} vs {fixture['away']} - {fixture['status'].title()}")

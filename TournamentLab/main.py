@@ -1,3 +1,4 @@
+from player_stats import calculate_player_goals, top_goal_scorer, rank_players
 from awards import league_champion, top_scoring_team, best_defensive_team, highest_scoring_match
 from standings import calculate_standings, sort_standings
 from fixtures import generate_fixtures, record_result
@@ -29,7 +30,9 @@ if can_start_tournament(teams):
 print("\n=== Record Match Result ===")
 
 success = record_result(fixtures, 1, 3, 1)
+goal_scorers = ["John", "Peter", "John", "David"]
 
+player_goals = calculate_player_goals(goal_scorers)
 if success:
     print("Match result recorded successfully!")
 else:
@@ -120,3 +123,13 @@ if highest_match:
     )
 else:
     print("Highest-scoring match: No matches played yet.")
+
+print("\n=== PLAYER STATISTICS ===")
+
+for player, goals in rank_players(player_goals):
+    print(f"{player}: {goals} goals")
+
+top_player = top_goal_scorer(player_goals)
+
+if top_player:
+    print("Top goal scorer:", top_player)

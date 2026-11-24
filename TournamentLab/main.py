@@ -1,8 +1,7 @@
-from standings import calculate_standings
 from standings import calculate_standings, sort_standings
 from fixtures import generate_fixtures, record_result
 from teams import register_team, can_start_tournament
-
+from statistics import total_matches, matches_played, matches_remaining, total_goals, average_goals_per_match
 teams = []
 
 print("=== TournamentLab ===")
@@ -88,3 +87,11 @@ print("\n=== FIXTURES LIST ===")
 
 for fixture in fixtures:
     print(f"{fixture['home']} vs {fixture['away']} - {fixture['status'].title()}")
+
+print("\n=== TOURNAMENT STATISTICS ===")
+
+print("Total matches:", total_matches(fixtures))
+print("Matches played:", matches_played(fixtures))
+print("Matches remaining:", matches_remaining(fixtures))
+print("Total goals scored:", total_goals(fixtures))
+print("Average goals per match:", average_goals_per_match(fixtures))

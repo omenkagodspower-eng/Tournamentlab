@@ -1,3 +1,4 @@
+from awards import league_champion, top_scoring_team, best_defensive_team, highest_scoring_match
 from standings import calculate_standings, sort_standings
 from fixtures import generate_fixtures, record_result
 from teams import register_team, can_start_tournament
@@ -95,3 +96,27 @@ print("Matches played:", matches_played(fixtures))
 print("Matches remaining:", matches_remaining(fixtures))
 print("Total goals scored:", total_goals(fixtures))
 print("Average goals per match:", average_goals_per_match(fixtures))
+print("\n=== TOURNAMENT AWARDS ===")
+
+champion = league_champion(standings)
+top_scorer = top_scoring_team(standings)
+best_defence = best_defensive_team(standings)
+highest_match = highest_scoring_match(fixtures)
+
+if champion:
+    print("League champion:", champion["name"])
+
+if top_scorer:
+    print("Top-scoring team:", top_scorer["name"])
+
+if best_defence:
+    print("Best defensive team:", best_defence["name"])
+
+if highest_match:
+    print(
+        "Highest-scoring match:",
+        f"{highest_match['home']} {highest_match['home_score']} - "
+        f"{highest_match['away_score']} {highest_match['away']}"
+    )
+else:
+    print("Highest-scoring match: No matches played yet.")

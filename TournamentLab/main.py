@@ -5,6 +5,7 @@ from fixtures import generate_fixtures, record_result
 from teams import register_team, can_start_tournament
 from statistics import total_matches, matches_played, matches_remaining, total_goals, average_goals_per_match
 teams = []
+players = []
 
 print("=== TournamentLab ===")
 print("Register 4 to 8 teams.\n")
@@ -19,6 +20,19 @@ while len(teams) < 4:
 
 print("\nRegistered teams:", teams)
 print("Can tournament start?", can_start_tournament(teams))
+print("\n=== Player Registration ===")
+
+while True:
+    player_name = input("Enter player name (or 'done' to finish): ").strip()
+
+    if player_name.lower() == "done":
+        break
+
+    if player_name and player_name not in players:
+        players.append(player_name)
+        print("Player registered successfully!\n")
+    else:
+        print("Invalid name or duplicate player.\n")
 
 if can_start_tournament(teams):
     fixtures = generate_fixtures(teams)
@@ -30,7 +44,24 @@ if can_start_tournament(teams):
 print("\n=== Record Match Result ===")
 
 success = record_result(fixtures, 1, 3, 1)
-goal_scorers = ["John", "Peter", "John", "David"]
+goal_scorers = []
+
+print("\nRegistered players:")
+
+for player in players:
+    print(player)
+
+scorer_count = int(input("How many goals were scored in this match?: "))
+
+for i in range(scorer_count):
+    while True:
+        scorer = input(f"Enter scorer {i + 1}: ").strip()
+
+        if scorer in players:
+            goal_scorers.append(scorer)
+            break
+        else:
+            print("Player not registered! Please enter a registered player.")
 
 player_goals = calculate_player_goals(goal_scorers)
 if success:
@@ -127,7 +158,8 @@ else:
 print("\n=== PLAYER STATISTICS ===")
 
 for player, goals in rank_players(player_goals):
-    print(f"{player}: {goals} goals")
+    word = "goal" if goals == 1 else "goals"
+    print(f"{player}: {goals} {word}")
 
 top_player = top_goal_scorer(player_goals)
 

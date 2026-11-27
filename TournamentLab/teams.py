@@ -1,29 +1,35 @@
-def validate_team_name(name):
+def validate_team_name(name, teams):
     name = name.strip()
 
-    if name == "":
+    if len(name) < 2 or len(name) > 30:
         return False
 
+    for team in teams:
+        if team["name"].casefold() == name.casefold():
+            return False
+
     return True
+
 
 def register_team(name, teams):
     name = name.strip()
 
-    if not validate_team_name(name):
+    if not validate_team_name(name, teams):
         return False
-
-    for team in teams:
-        if team.lower() == name.lower():
-            return False
 
     if len(teams) >= 8:
         return False
 
-    teams.append(name)
+    team_id = f"TM{len(teams) + 1:03d}"
+
+    team = {
+        "id": team_id,
+        "name": name
+    }
+
+    teams.append(team)
     return True
+
 
 def can_start_tournament(teams):
-    if len(teams) < 4:
-        return False
-
-    return True
+    return len(teams) >= 4
